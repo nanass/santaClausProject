@@ -1,0 +1,50 @@
+#Reindeer{
+    position: absolute;
+    margin-left: 0;
+}
+#Elves{
+    position: absolute;
+    margin-left: 600px;
+}
+#Santa{
+    position: absolute;
+    margin-left: 1200px;
+}
+#FirstColumn {
+    position: absolute;
+    top:0;
+    left:0;
+}
+#SecondColumn{
+    position:absolute;
+    top:0;
+    left:200px;
+
+}
+#ThirdColumn{
+    position:absolute;
+    top:0;
+    left: 400px;
+
+}
+.helper{
+    position:relative;
+    height:100px;
+    width:100px;
+    padding:5px;
+}
+.img{
+    position:absolute;
+    left:0;
+
+}
+.msg{
+    position:relative;
+    float:right;
+    top:20px;
+}
+.SantaMsg{
+    position:absolute;
+    left:0;
+    top:175px;
+}
