@@ -34,3 +34,6 @@
 /target/classes/org/nettosphere/samples/chat/StartBroadcast.class
 /target/classes/reindeer.jpg
 /target/classes/santa.jpg
+/.idea/libraries/Maven__com_typesafe_akka_akka_actor_2_11_0_M4_2_2_0.xml
+/.idea/libraries/Maven__com_typesafe_config_1_0_2.xml
+/.idea/libraries/Maven__org_scala_lang_scala_library_2_11_0_M4.xml
