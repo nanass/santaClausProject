@@ -1,28 +1,33 @@
 package org.nettosphere.samples.chat;
 
+import akka.actor.UntypedActor;
 import org.atmosphere.cpr.Broadcaster;
+import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import AkkaNorthPole.Messages.InterfaceMsg;
 
-public class AlternateInput extends Thread{
+public class AlternateInput extends UntypedActor{
+
     Broadcaster b;
-    public AlternateInput(Broadcaster b) {
-        this.b = b;
+
+    public AlternateInput() {
+        this.b = BroadcasterFactory.getDefault().lookup("/");
     }
+
     private final ObjectMapper mapper = new ObjectMapper();
-    public void run() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String a = "";
-        System.out.println("Type quit to stop the server");
-        while (!(a.equals("quit"))) {
-            try {
-                a = br.readLine();
-                b.broadcast(mapper.writeValueAsString(mapper.readValue("{\"message\":\"" + a + "\",\"who\":\"Santa\"}",Data.class)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
+    @Override
+    public void onReceive(Object message) throws Exception {
+        InterfaceMsg msg = (InterfaceMsg)message;
+        b.broadcast(
+             mapper.writeValueAsString(
+                 mapper.readValue(
+                         "{\"message\":\"" + msg.what + "\"," +
+                          "\"who\":\"" + msg.who + "\"" +
+                          "}",Data.class
+                 )
+             )
+        );
+        System.out.println(message);
     }
 }

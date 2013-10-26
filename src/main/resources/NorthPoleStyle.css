@@ -30,7 +30,7 @@
 .helper{
     position:relative;
     height:100px;
-    width:100px;
+    width:130px;
     padding:5px;
 }
 .img{
@@ -39,9 +39,10 @@
 
 }
 .msg{
+    float: right;
     position:relative;
-    float:right;
     top:20px;
+    width: 50px;
 }
 .SantaMsg{
     position:absolute;
