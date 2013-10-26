@@ -1,32 +1,25 @@
 package org.nettosphere.samples.chat;
 
-import JCSPNorthPole.NorthPoleInterfaceMsg;
 import org.atmosphere.cpr.Broadcaster;
-import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.jcsp.lang.CSProcess;
-import org.jcsp.lang.ChannelInput;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.Future;
 
-public class AlternateInput implements CSProcess {
-    final ChannelInput in;
+public class AlternateInput extends Thread{
     Broadcaster b;
-
-    public AlternateInput(ChannelInput in) {
-        this.b = BroadcasterFactory.getDefault().lookup("/");
-        this.in = in;
+    public AlternateInput(Broadcaster b) {
+        this.b = b;
     }
-
     private final ObjectMapper mapper = new ObjectMapper();
     public void run() {
-        while (true) {
-           NorthPoleInterfaceMsg a = (NorthPoleInterfaceMsg)in.read();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String a = "";
+        System.out.println("Type quit to stop the server");
+        while (!(a.equals("quit"))) {
             try {
-                Future br = b.broadcast(mapper.writeValueAsString(mapper.readValue("{\"message\":\"" + a.msg+ "\",\"who\":\""+a.who+"\"}",Data.class)));
+                a = br.readLine();
+                b.broadcast(mapper.writeValueAsString(mapper.readValue("{\"message\":\"" + a + "\",\"who\":\"Santa\"}",Data.class)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
