@@ -37,3 +37,11 @@
 /.idea/libraries/Maven__com_typesafe_akka_akka_actor_2_11_0_M4_2_2_0.xml
 /.idea/libraries/Maven__com_typesafe_config_1_0_2.xml
 /.idea/libraries/Maven__org_scala_lang_scala_library_2_11_0_M4.xml
+/.idea/libraries/jcsp_1_6a_4_10_10.xml
+/target/classes/NorthPole/Group.class
+/target/classes/NorthPole/NorthPole.class
+/target/classes/NorthPole/Santa.class
+/target/classes/NorthPole/SantasFriend.class
+/target/classes/NorthPole/Santa$UnitOfWork.class
+/target/classes/NorthPole/WaitingRoom.class
+/target/classes/NorthPole/WaitingRoom$MeetSanta.class
