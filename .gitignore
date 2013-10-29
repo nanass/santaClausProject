@@ -45,3 +45,8 @@
 /target/classes/NorthPole/Santa$UnitOfWork.class
 /target/classes/NorthPole/WaitingRoom.class
 /target/classes/NorthPole/WaitingRoom$MeetSanta.class
+.idea/libraries/Maven__org_atmosphere_atmosphere_runtime_2_0_3.xml
+.idea/libraries/Maven__org_atmosphere_nettosphere_2_0_2.xml
+exportToHTML/pom.xml.html
+nettosphere-chat.iml
+target/classes/mrs-claus.jpg

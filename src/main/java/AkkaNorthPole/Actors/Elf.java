@@ -66,6 +66,9 @@ public class Elf extends NorthPoleActor{
                 log("Waiting");
                 reQueue(new Msg(NorthPoleMsg.WakeUp, msg.group, msg.who), getSelf(), 100, getSender());
                 break;
+            case Cookies:
+                reQueue(new Msg(NorthPoleMsg.Done, msg.group, msg.who), getSelf(), 100, getSender());
+                break;
             default:
                 break;
 

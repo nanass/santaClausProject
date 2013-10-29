@@ -1,9 +1,6 @@
 package AkkaNorthPole.Main;
 
-import AkkaNorthPole.Actors.Elf;
-import AkkaNorthPole.Actors.Reindeer;
-import AkkaNorthPole.Actors.Santa;
-import AkkaNorthPole.Actors.WaitingRoom;
+import AkkaNorthPole.Actors.*;
 import AkkaNorthPole. Messages.Msg;
 import AkkaNorthPole.Messages.NorthPoleMsg;
 import akka.actor.ActorRef;
@@ -37,7 +34,7 @@ class NorthPole{
         for (name r : name.values()){
             reindeer.add(system.actorOf(Props.create(Reindeer.class, r.toString(), secretary)));
         }
-        ActorRef mrsClaus
+        ActorRef mrsClaus = system.actorOf(Props.create(MrsClaus.class, santa));
 
     }
 }

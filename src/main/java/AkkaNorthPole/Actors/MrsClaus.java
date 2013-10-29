@@ -17,6 +17,7 @@ public class MrsClaus extends NorthPoleActor{
     public MrsClaus(ActorRef santa){
         super("MrsClaus");
         this.santa = santa;
+        reQueue(new Msg(NorthPoleMsg.Back), getSelf(), 1000, getSelf());
     }
 
     @Override
@@ -24,13 +25,17 @@ public class MrsClaus extends NorthPoleActor{
         Msg msg = (AkkaNorthPole.Messages.Msg)message;
         switch (msg.nPMsg){
             case Back:
-                reQueue(new Msg(NorthPoleMsg.WakeUp), getSelf(), 7000, santa);
+                reQueue(new Msg(NorthPoleMsg.Cookies), getSelf(), 2000, santa);
                 log("Going to Santa's");
                 break;
             case Wait:
                 log("Santa is Busy...Waiting");
-                reQueue(new Msg(NorthPoleMsg.WakeUp), getSelf(), 7000, santa);
-                log("Going to Santas");
+                reQueue(new Msg(NorthPoleMsg.Cookies), getSelf(), 2000, santa);
+                log("Going to Santa's");
+                break;
+            case Done:
+                log("Going back home");
+                reQueue(new Msg(NorthPoleMsg.Back), getSelf(), 2000, getSelf());
                 break;
 
         }
