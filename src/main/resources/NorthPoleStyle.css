@@ -10,6 +10,11 @@
     position: absolute;
     margin-left: 1200px;
 }
+#MrsClaus{
+    position: absolute;
+    margin-left: 1200px;
+    margin-top: 230px;
+}
 #FirstColumn {
     position: absolute;
     top:0;
@@ -44,7 +49,7 @@
     top:20px;
     width: 50px;
 }
-.SantaMsg{
+.SingleMsg{
     position:absolute;
     left:0;
     top:175px;
