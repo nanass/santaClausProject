@@ -14,8 +14,11 @@ public class Santa implements Runnable
 	private Boolean isSleeping;
 	private final ExecutorService es = Executors.newSingleThreadExecutor();
     private final AlternateInput ai;
-    public Santa(AlternateInput ai){
+    private final SnackRoom sr;
+
+    public Santa(AlternateInput ai, SnackRoom sr){
         this.ai = ai;
+        this.sr = sr;
     }
     public void findWaitingRoom(WaitingRoom waitingRoom)
     {
@@ -64,18 +67,35 @@ public class Santa implements Runnable
 
     public void consultOnRD(Group elves) throws InterruptedException, BrokenBarrierException
     {
+        sr.isWithElves();
 	    CyclicBarrier work = new CyclicBarrier(2);
 	    isSleeping = false;
         log("Welcoming elves");
+        if(sr.isWaiting()) eatCookies();
 	    es.submit(new UnitOfWork("Entering Santa's house", elves, work));
+        if(sr.isWaiting()) eatCookies();
+        log("Consulting with elves");
 	    es.submit(new UnitOfWork("Consulting with Santa", elves, work));
+        if(sr.isWaiting()) eatCookies();
+        log("Dismissing Elves");
 	    es.submit(new UnitOfWork("Leaving santa's", elves, work));
+        if(sr.isWaiting()) eatCookies();
 	    es.submit(new UnitOfWork("Release", elves, work));
+        if(sr.isWaiting()) eatCookies();
 	    work.await();
 	    waitingRoom.releaseGroup();
+        sr.doneMeeting();
 	    sleep();
     }
-
+    private void eatCookies(){
+        try {
+            log("Eating Cookies");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        sr.doneEating(1);
+    }
     public void run()
     {
             try

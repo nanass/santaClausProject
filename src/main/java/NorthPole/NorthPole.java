@@ -13,7 +13,9 @@ public class NorthPole
         NettoServer ns = new NettoServer();
         Broadcaster b = BroadcasterFactory.getDefault().lookup("/");
         AlternateInput ai = new AlternateInput(b);
-	    final Santa santa = new Santa(ai);
+        final SnackRoom sr = new SnackRoom();
+	    final Santa santa = new Santa(ai, sr);
+        final MrsClaus mrsClaus = new MrsClaus(ai, sr);
         final WaitingRoom waitingRoom = new WaitingRoom(santa, 3, "Elf", ai);
 	    final WaitingRoom stable = new WaitingRoom(santa, 9, "Reindeer", ai);
         final String[] reindeerNames = { "Dasher","Dancer", "Prancer", "Vixen",
@@ -30,5 +32,6 @@ public class NorthPole
         {
             (new Thread(new SantasFriend("Elf" + name, waitingRoom, "Elf", ai))).start();
         }
+         (new Thread(mrsClaus)).start();
      }
 }
