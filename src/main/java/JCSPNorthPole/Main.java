@@ -14,6 +14,7 @@ public class Main {
         AltingBarrier [] stable = AltingBarrier.create(10);
         AltingBarrier [] sleigh = AltingBarrier.create(10);
         Bucket elfGroup = new Bucket();
+        Bucket cookieRoom = new Bucket();
         One2OneChannel openForBusiness = Channel.one2one();
         One2OneChannel consultationOver = Channel.one2one();
         Any2OneChannel harness = Channel.any2one();
@@ -43,11 +44,13 @@ public class Main {
         }
 
         CSProcess[] procs = {new Santa(openForBusiness.out(), consultationOver.out(),harness.in(), harnessed.out(), returned.out(),
-                                        unharnessList,stable[9],sleigh[9],consult.in(),consultingList,negotiating.in(),consultedList, print.out()),
+                                        unharnessList,stable[9],sleigh[9],consult.in(),consultingList,negotiating.in(),consultedList, print.out(), cookieRoom),
 
                              new WaitingRoom(elfGroup,needToConsult.in(),joinGroup.out(),
                                         openForBusiness.in(),consultationOver.in()),
-                             new AlternateInput(print.in())};
+                             new AlternateInput(print.in()),
+                             new MrsClaus(cookieRoom, print.out())
+        };
 
         procs = Utils.concat(procs, reindeerProc);
         procs = Utils.concat(procs, elfProc);

@@ -20,13 +20,14 @@ public class Santa implements CSProcess {
     final ChannelInput negotiating;
     final List<ChannelOutput> consulted;
     final ChannelOutput printOut;
+    final Bucket cookiesReady;
     final int deliveryTime = 5000;
     final int consultationTime = 2000;
 
     public Santa(ChannelOutput openForBusiness, ChannelOutput consultationOver, ChannelInput harness, ChannelOutput harnessed,
             ChannelOutput returned, List<ChannelOutput> unharnessList, AltingBarrier stable, AltingBarrier sleigh,
             AltingChannelInput consult, List<ChannelOutput> consulting, ChannelInput negotiating,
-            List<ChannelOutput> consulted, ChannelOutput printOut){
+            List<ChannelOutput> consulted, ChannelOutput printOut, Bucket cookiesReady){
         this.openForBusiness = openForBusiness;
         this.consultationOver = consultationOver;
         this.harness = harness;
@@ -40,6 +41,7 @@ public class Santa implements CSProcess {
         this.negotiating = negotiating;
         this.consulted = consulted;
         this.printOut = printOut;
+        this.cookiesReady = cookiesReady;
     }
 
     public void run(){
@@ -67,8 +69,19 @@ public class Santa implements CSProcess {
                     break;
                 case 1: //Elves
                     Integer[] id2 = new Integer[9];
+                    if (cookiesReady.holding() > 0) {
+                        log("Eating Cookies");
+                        timer.sleep(2000);
+                        cookiesReady.flush();
+                    }
                     id2[0] = (Integer)consult.read();
                     log("Welcoming elves");
+                    if (cookiesReady.holding() > 0) {
+                        log("Eating Cookies");
+                        timer.sleep(2000);
+                        cookiesReady.flush();
+                        log("Welcoming elves");
+                    }
                     for ( int i = 1; i <= 2; i++) { id2[i] = (Integer)consult.read(); }
                     for ( int i = 0; i <= 2; i++) {
                         consulting.get(id2[i]).write(1);
@@ -76,6 +89,12 @@ public class Santa implements CSProcess {
                     for ( int i = 0; i <= 2; i++) { negotiating.read(); }
                     timer.sleep ( consultationTime + rng.nextInt(consultationTime));
                     log("Showing elves out");
+                    if (cookiesReady.holding() > 0) {
+                        log("Eating Cookies");
+                        timer.sleep(2000);
+                        cookiesReady.flush();
+                        log("Showing elves out");
+                    }
                     for ( int i = 0; i <= 2; i++){
                         consulted.get(id2[i]).write(1);
                     }
