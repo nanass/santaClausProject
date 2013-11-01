@@ -1,0 +1,54 @@
+package JCSPNorthPole;
+
+import org.atmosphere.cpr.Broadcaster;
+import org.atmosphere.cpr.BroadcasterFactory;
+import org.jcsp.lang.*;
+import org.nettosphere.samples.chat.Data;
+
+import java.util.ArrayList;
+
+public class Wishlist implements CSProcess {
+
+    AltingChannelInput wishIn;
+    AltingChannelInput delivery;
+    ChannelOutput out;
+    Alternative alt;
+    Broadcaster b;
+    ArrayList<Data> wishList = new ArrayList<Data>();
+
+    public Wishlist(AltingChannelInput wishIn, AltingChannelInput delivery, ChannelOutput out){
+        this.wishIn = wishIn;
+        this.delivery = delivery;
+        this.b = BroadcasterFactory.getDefault().lookup("/");
+        Guard[] guard = {delivery, wishIn};
+        alt = new Alternative(guard);
+        this.out = out;
+    }
+
+    public void run(){
+        while(true){
+            switch (alt.priSelect()){
+                case 0 :
+                    delivery.read();
+                    String output = "";
+                    System.out.println("Gifts for: ");
+                    for(Data d : wishList){
+                        System.out.println(d.getAuthor() + " : " + d.getMessage());
+                        output += d.getAuthor() + " , " + d.getMessage() +" ";
+                    }
+                    wishList.clear();
+                    out.write(new NorthPoleInterfaceMsg(output, "all"));
+                    break;
+                case 1 :
+                    Data msg = (Data)wishIn.read();
+                    if(msg.getType().equals("wishlist")){
+                        wishList.add(msg);
+                        System.out.println(msg.getMessage());
+                    }
+                    break;
+
+            }
+        }
+    }
+
+}

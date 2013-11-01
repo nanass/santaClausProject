@@ -20,6 +20,7 @@ public class Santa implements CSProcess {
     final ChannelInput negotiating;
     final List<ChannelOutput> consulted;
     final ChannelOutput printOut;
+    final ChannelOutput delivery;
     final Bucket cookiesReady;
     final int deliveryTime = 5000;
     final int consultationTime = 2000;
@@ -27,7 +28,7 @@ public class Santa implements CSProcess {
     public Santa(ChannelOutput openForBusiness, ChannelOutput consultationOver, ChannelInput harness, ChannelOutput harnessed,
             ChannelOutput returned, List<ChannelOutput> unharnessList, AltingBarrier stable, AltingBarrier sleigh,
             AltingChannelInput consult, List<ChannelOutput> consulting, ChannelInput negotiating,
-            List<ChannelOutput> consulted, ChannelOutput printOut, Bucket cookiesReady){
+            List<ChannelOutput> consulted, ChannelOutput printOut, Bucket cookiesReady, ChannelOutput delivery){
         this.openForBusiness = openForBusiness;
         this.consultationOver = consultationOver;
         this.harness = harness;
@@ -42,6 +43,7 @@ public class Santa implements CSProcess {
         this.consulted = consulted;
         this.printOut = printOut;
         this.cookiesReady = cookiesReady;
+        this.delivery = delivery;
     }
 
     public void run(){
@@ -61,8 +63,10 @@ public class Santa implements CSProcess {
                     }
                     for ( int i = 0; i <= 8; i++){ harnessed.write(1); }
                     sleigh.sync();
+                    delivery.write(1);
                     timer.sleep ( deliveryTime + rng.nextInt(deliveryTime));
                     for ( int i = 0; i <= 8; i++){  returned.write(1); }
+                    log("Unharnessing reindeer");
                     for ( int i = 0; i <= 8; i++) {
                         unharnessList.get(i).write(1);
                     }

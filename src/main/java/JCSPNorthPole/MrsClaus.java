@@ -4,6 +4,7 @@ import org.jcsp.lang.Bucket;
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.CSTimer;
 import org.jcsp.lang.ChannelOutput;
+import org.nettosphere.samples.chat.NorthPole;
 
 public class MrsClaus implements CSProcess {
 
@@ -12,7 +13,7 @@ public class MrsClaus implements CSProcess {
     private final String name = "MrsClaus";
     private final CSTimer timer = new CSTimer();
 
-    MrsClaus(Bucket deliverCookies, ChannelOutput printOut){
+    public MrsClaus(Bucket deliverCookies, ChannelOutput printOut){
         this.deliverCookies = deliverCookies;
         this.printOut = printOut;
     }

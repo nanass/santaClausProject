@@ -10,7 +10,7 @@ import java.util.List;
 
 public class  Utils {
 
-    static CSProcess[] concat(CSProcess[] A, CSProcess[] B) {
+    public static CSProcess[] concat(CSProcess[] A, CSProcess[] B) {
         int aLen = A.length;
         int bLen = B.length;
         CSProcess[] C = new CSProcess[aLen+bLen];
@@ -19,7 +19,7 @@ public class  Utils {
         return C;
     }
 
-    static List<ChannelOutput> getOutList(One2OneChannel[] chan){
+    public static List<ChannelOutput> getOutList(One2OneChannel[] chan){
         List<ChannelOutput> outs = new ArrayList<ChannelOutput>();
         for(int i = 0; i < chan.length; i++){
             outs.add(chan[i].out());

@@ -3,6 +3,7 @@ package JCSPNorthPole;
 import org.jcsp.lang.*;
 import org.nettosphere.samples.chat.AlternateInput;
 import org.nettosphere.samples.chat.NettoServer;
+import org.nettosphere.samples.chat.NorthPole;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class Main {
         List<ChannelOutput> consultingList = Utils.getOutList(consulting);
         List<ChannelOutput> consultedList = Utils.getOutList(consulted);
         Any2OneChannel print = Channel.any2one();
+        One2OneChannel deliveryNotice = Channel.one2one();
 
         CSProcess[] reindeerProc = new CSProcess[9];
         for (name r : name.values()){
@@ -44,12 +46,14 @@ public class Main {
         }
 
         CSProcess[] procs = {new Santa(openForBusiness.out(), consultationOver.out(),harness.in(), harnessed.out(), returned.out(),
-                                        unharnessList,stable[9],sleigh[9],consult.in(),consultingList,negotiating.in(),consultedList, print.out(), cookieRoom),
+                                        unharnessList,stable[9],sleigh[9],consult.in(),consultingList,negotiating.in(),
+                                        consultedList, print.out(), cookieRoom, deliveryNotice.out()),
 
                              new WaitingRoom(elfGroup,needToConsult.in(),joinGroup.out(),
                                         openForBusiness.in(),consultationOver.in()),
                              new AlternateInput(print.in()),
-                             new MrsClaus(cookieRoom, print.out())
+                             new MrsClaus(cookieRoom, print.out()),
+                             new Wishlist(NorthPole.GetChannel.getInput(), deliveryNotice.in(), print.out())
         };
 
         procs = Utils.concat(procs, reindeerProc);

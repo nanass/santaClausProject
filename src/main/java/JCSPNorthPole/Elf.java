@@ -2,6 +2,7 @@ package JCSPNorthPole;
 
 import org.jcsp.lang.*;
 import org.nettosphere.samples.chat.AlternateInput;
+import org.nettosphere.samples.chat.NorthPole;
 
 import java.util.Random;
 
@@ -37,7 +38,6 @@ public class Elf implements CSProcess{
     public void run(){
         Random rng = new Random();
         CSTimer timer = new CSTimer();
-
         while(true){
             log("Working");
             timer.sleep(workingTime + rng.nextInt(workingTime));

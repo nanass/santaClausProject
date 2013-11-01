@@ -6,6 +6,7 @@ import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.ChannelInput;
+import org.jcsp.lang.ChannelOutput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.concurrent.Future;
 
 public class AlternateInput implements CSProcess {
     final ChannelInput in;
+
     Broadcaster b;
 
     public AlternateInput(ChannelInput in) {
@@ -24,9 +26,20 @@ public class AlternateInput implements CSProcess {
     private final ObjectMapper mapper = new ObjectMapper();
     public void run() {
         while (true) {
-           NorthPoleInterfaceMsg a = (NorthPoleInterfaceMsg)in.read();
+
+            NorthPoleInterfaceMsg a = (NorthPoleInterfaceMsg)in.read();
+
+            if(a.msg.equals("Delivering Toys") && a.who.equals("Ruldolph")) {
+                //out.write("Deliver");
+            }
+
             try {
-                Future br = b.broadcast(mapper.writeValueAsString(mapper.readValue("{\"message\":\"" + a.msg+ "\",\"who\":\""+a.who+"\"}",Data.class)));
+                Future br = b.broadcast(
+                        mapper.writeValueAsString(
+                                mapper.readValue(
+                                        "{\"message\":\"" + a.msg + "\","+
+                                         "\"who\":\""+a.who+"\"" + "," +
+                                         "\"type\":\"northPole\"}",Data.class)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
