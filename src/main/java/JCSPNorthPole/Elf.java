@@ -1,8 +1,6 @@
 package JCSPNorthPole;
 
 import org.jcsp.lang.*;
-import org.nettosphere.samples.chat.AlternateInput;
-import org.nettosphere.samples.chat.NorthPole;
 
 import java.util.Random;
 

@@ -4,7 +4,6 @@ import org.jcsp.lang.Bucket;
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.CSTimer;
 import org.jcsp.lang.ChannelOutput;
-import org.nettosphere.samples.chat.NorthPole;
 
 public class MrsClaus implements CSProcess {
 

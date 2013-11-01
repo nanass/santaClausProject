@@ -1,7 +1,5 @@
 package JCSPNorthPole;
 
-import org.atmosphere.cpr.Broadcaster;
-import org.atmosphere.cpr.BroadcasterFactory;
 import org.jcsp.lang.*;
 import org.nettosphere.samples.chat.Data;
 
@@ -13,13 +11,11 @@ public class Wishlist implements CSProcess {
     AltingChannelInput delivery;
     ChannelOutput out;
     Alternative alt;
-    Broadcaster b;
     ArrayList<Data> wishList = new ArrayList<Data>();
 
     public Wishlist(AltingChannelInput wishIn, AltingChannelInput delivery, ChannelOutput out){
         this.wishIn = wishIn;
         this.delivery = delivery;
-        this.b = BroadcasterFactory.getDefault().lookup("/");
         Guard[] guard = {delivery, wishIn};
         alt = new Alternative(guard);
         this.out = out;

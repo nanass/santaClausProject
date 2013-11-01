@@ -6,11 +6,7 @@ import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.ChannelInput;
-import org.jcsp.lang.ChannelOutput;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.Future;
 
 public class AlternateInput implements CSProcess {
@@ -28,10 +24,6 @@ public class AlternateInput implements CSProcess {
         while (true) {
 
             NorthPoleInterfaceMsg a = (NorthPoleInterfaceMsg)in.read();
-
-            if(a.msg.equals("Delivering Toys") && a.who.equals("Ruldolph")) {
-                //out.write("Deliver");
-            }
 
             try {
                 Future br = b.broadcast(

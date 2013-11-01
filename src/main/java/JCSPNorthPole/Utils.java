@@ -1,6 +1,5 @@
 package JCSPNorthPole;
 
-
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.ChannelOutput;
 import org.jcsp.lang.One2OneChannel;

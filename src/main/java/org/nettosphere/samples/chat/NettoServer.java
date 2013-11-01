@@ -1,7 +1,6 @@
 package org.nettosphere.samples.chat;
 
 import org.atmosphere.nettosphere.Config;
-import org.atmosphere.nettosphere.Handler;
 import org.atmosphere.nettosphere.Nettosphere;
 
 public class NettoServer {
@@ -13,7 +12,5 @@ public class NettoServer {
                 .port(8080).host("127.0.0.1").build();
         Nettosphere s = new Nettosphere.Builder().config(b.build()).build();
         s.start();
-
-
     }
 }
