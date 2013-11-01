@@ -1,13 +1,8 @@
 package org.nettosphere.samples.chat;
 
 import org.atmosphere.cpr.Broadcaster;
-import org.atmosphere.cpr.BroadcasterFactory;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.Future;
 
 public class AlternateInput {
     Broadcaster  b;

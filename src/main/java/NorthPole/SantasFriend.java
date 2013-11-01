@@ -1,8 +1,6 @@
 package NorthPole;
 
 import org.nettosphere.samples.chat.AlternateInput;
-
-import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.SynchronousQueue;
 
