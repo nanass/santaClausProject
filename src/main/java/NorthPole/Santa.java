@@ -6,6 +6,7 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import static org.nettosphere.samples.chat.NorthPole.WishList.deliverGifts;
 
 public class Santa implements Runnable
 {
@@ -58,9 +59,11 @@ public class Santa implements Runnable
         log("Harnessing reindeer");
 	    es.submit(new UnitOfWork("Getting Hitched", reindeer, work));
 	    es.submit(new UnitOfWork("Delivering Toys", reindeer, work));
+        deliverGifts();
 	    es.submit(new UnitOfWork("Getting unhitched", reindeer, work));
 	    es.submit(new UnitOfWork("Release", reindeer, work));
 	    work.await();
+        log("Unharnessing reindeer");
 	    stable.releaseGroup();
 	    sleep();
     }

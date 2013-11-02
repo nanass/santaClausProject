@@ -1,9 +1,6 @@
 package NorthPole;
 
-
 import org.nettosphere.samples.chat.AlternateInput;
-
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class MrsClaus implements Runnable{
 

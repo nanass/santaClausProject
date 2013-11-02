@@ -3,6 +3,7 @@ package org.nettosphere.samples.chat;
 import org.atmosphere.cpr.Broadcaster;
 import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
+import java.util.concurrent.Future;
 
 public class AlternateInput {
     Broadcaster  b;
@@ -14,13 +15,13 @@ public class AlternateInput {
 
     public void send(String msg, String who)  {
         try {
-            b.broadcast(
+            Future br = b.broadcast(
                     mapper.writeValueAsString(
                             mapper.readValue(
-                                    "{\"message\":\"" + msg +
-                                      "\",\"who\":\"" + who +
-                                 "\"}",
-                                    Data.class)));
+                                    "{\"message\":\"" + msg+ "\","+
+                                            "\"who\":\""+ who+"\"" + "," +
+                                            "\"type\":\"northPole\"}", Data.class)));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
