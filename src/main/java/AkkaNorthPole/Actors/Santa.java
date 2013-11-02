@@ -15,11 +15,14 @@ public class Santa extends NorthPoleActor{
                                       dismissingReindeer, eatingCookies}
     int wait = 0;
     private ActorRef secretary;
+    private ActorRef wishList;
+
     private HashMap<String, Msg> visitorQueue = new HashMap<String, Msg>();
-    public Santa(String name) {
+    public Santa(String name, ActorRef wishList) {
         super(name);
         setState(santaState.asleep);
         log("Sleeping");
+        this.wishList = wishList;
     }
     @Override
     public void onReceive(Object message) throws Exception {
@@ -76,9 +79,11 @@ public class Santa extends NorthPoleActor{
                         case deliveringToys :
                             log("Delivering Toys");
                             setState(santaState.dismissingReindeer);
+                            wishList.tell("Deliver", null);
                             doAction(msg.who, new Msg(NorthPoleMsg.Unhitch, msg.group, msg.who));
                             break;
                         case dismissingReindeer :
+                            log("Unharnessing reindeer");
                             log("Sleeping");
                             setState(santaState.asleep);
                             secretary.tell(new Msg(NorthPoleMsg.Dismiss, msg.group, msg.who),getSelf());

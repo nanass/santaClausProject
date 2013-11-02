@@ -6,6 +6,7 @@ import AkkaNorthPole.Messages.NorthPoleMsg;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import org.nettosphere.samples.chat.AlternateInput;
 import org.nettosphere.samples.chat.NettoServer;
 
 import java.io.IOException;
@@ -23,8 +24,10 @@ class NorthPole{
         List<ActorRef> reindeer = new ArrayList<ActorRef>();
 
         ActorSystem system = ActorSystem.create("NorthPole");
-
-        ActorRef santa = system.actorOf(Props.create(Santa.class, "Santa"));
+        org.nettosphere.samples.chat.NorthPole.SendToActors.aiActorRefRef(system.actorOf(Props.create(AlternateInput.class)));
+        ActorRef wishList = system.actorOf(Props.create(WishList.class));
+        org.nettosphere.samples.chat.NorthPole.SendToActors.setActorRef(wishList);
+        ActorRef santa = system.actorOf(Props.create(Santa.class, "Santa", wishList));
         ActorRef secretary = system.actorOf(Props.create(WaitingRoom.class, "WaitingRoom", santa));
         santa.tell(new Msg(NorthPoleMsg.Secretary), secretary);
 

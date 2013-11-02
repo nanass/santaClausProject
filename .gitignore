@@ -51,3 +51,6 @@ exportToHTML/pom.xml.html
 nettosphere-chat.iml
 target/classes/mrs-claus.jpg
 NorthPole$WishList.class
+target/classes/org/nettosphere/samples/chat/NorthPole$SendToActors.class
+target/classes/AkkaNorthPole/Actors/WaitingRoom$waitingRoomState.class
+target/classes/AkkaNorthPole/Actors/WishList.class

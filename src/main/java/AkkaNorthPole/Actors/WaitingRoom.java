@@ -3,7 +3,6 @@ package AkkaNorthPole.Actors;
 import AkkaNorthPole.Messages.Msg;
 import AkkaNorthPole.Messages.NorthPoleMsg;
 import akka.actor.ActorRef;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +10,10 @@ public class WaitingRoom extends NorthPoleActor{
 
     private List<ActorRef> elves = new ArrayList();
     private List<ActorRef> reindeer = new ArrayList();
-    secretaryState reindeerWaiting;
-    secretaryState elfWaiting;
+    waitingRoomState reindeerWaiting;
+    waitingRoomState elfWaiting;
     private ActorRef santa;
-    enum secretaryState implements State{full, notFull}
+    enum waitingRoomState implements State{full, notFull}
 
     public WaitingRoom(String name) {
         super(name);
@@ -22,8 +21,8 @@ public class WaitingRoom extends NorthPoleActor{
     public WaitingRoom(String name, ActorRef santa){
         this(name);
         this.santa = santa;
-        reindeerWaiting = secretaryState.notFull;
-        elfWaiting = secretaryState.notFull;
+        reindeerWaiting = waitingRoomState.notFull;
+        elfWaiting = waitingRoomState.notFull;
     }
 
     @Override
@@ -41,26 +40,26 @@ public class WaitingRoom extends NorthPoleActor{
                 if(msg.group.equals("Elves")) {
                     batchSend(msg.who, new Msg(NorthPoleMsg.GetToWork));
                     elves.clear();
-                    elfWaiting = secretaryState.notFull;
+                    elfWaiting = waitingRoomState.notFull;
                 }
                 else if(msg.group.equals("Reindeer")) {
                     batchSend(msg.who, new Msg(NorthPoleMsg.GoOnVacation));
                     reindeer.clear();
-                    reindeerWaiting = secretaryState.notFull;
+                    reindeerWaiting = waitingRoomState.notFull;
                 }
             default:
         }
     }
     private void queue(List<ActorRef> who, String group, int size){
-        if((group.equals("Elves") && elfWaiting.equals(secretaryState.notFull)) ||
-                (group.equals("Reindeer") && reindeerWaiting.equals(secretaryState.notFull))){
+        if((group.equals("Elves") && elfWaiting.equals(waitingRoomState.notFull)) ||
+                (group.equals("Reindeer") && reindeerWaiting.equals(waitingRoomState.notFull))){
             getSender().tell(new Msg(NorthPoleMsg.Allowed), santa);
             who.add(sender());
             if(who.size() == size){
                if(group.equals("Elves"))
-                   elfWaiting = secretaryState.full;
+                   elfWaiting = waitingRoomState.full;
                else if(group.equals("Reindeer"))
-                   reindeerWaiting = secretaryState.full;
+                   reindeerWaiting = waitingRoomState.full;
                 getSender().tell(new Msg(NorthPoleMsg.Last, group, who), santa);
             }
         }

@@ -32,6 +32,11 @@
     left: 400px;
 
 }
+#GiftsDelivered{
+    margin-top: 25px;
+    margin-right: 25px;
+    width: 50px;
+}
 .helper{
     position:relative;
     height:100px;
@@ -53,4 +58,17 @@
     position:absolute;
     left:0;
     top:175px;
+}
+#input {
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    margin-top: 400px;
+    padding: 5px;
+    width: 400px;
+}
+#status {
+    width: 88px;
+    display: block;
+    float: left;
+    margin-top: 400px;
 }

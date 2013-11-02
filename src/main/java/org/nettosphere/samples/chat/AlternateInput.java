@@ -5,6 +5,7 @@ import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import AkkaNorthPole.Messages.InterfaceMsg;
+import java.util.concurrent.Future;
 
 public class AlternateInput extends UntypedActor{
 
@@ -19,15 +20,11 @@ public class AlternateInput extends UntypedActor{
     @Override
     public void onReceive(Object message) throws Exception {
         InterfaceMsg msg = (InterfaceMsg)message;
-        b.broadcast(
-             mapper.writeValueAsString(
-                 mapper.readValue(
-                         "{\"message\":\"" + msg.what + "\"," +
-                          "\"who\":\"" + msg.who + "\"" +
-                          "}",Data.class
-                 )
-             )
-        );
-        System.out.println(message);
+        Future br = b.broadcast(
+                mapper.writeValueAsString(
+                        mapper.readValue(
+                                "{\"message\":\"" + msg.what+ "\","+
+                                        "\"who\":\""+ msg.who+"\"" + "," +
+                                        "\"type\":\"northPole\"}", Data.class)));
     }
 }

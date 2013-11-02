@@ -7,7 +7,6 @@ import akka.actor.Props;
 
 public class MrsClaus extends NorthPoleActor{
 
-
     public static Props mkProps(String name) {
         return Props.create(NorthPoleActor.class, name);
     }
