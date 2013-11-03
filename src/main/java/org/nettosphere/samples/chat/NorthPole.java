@@ -1,5 +1,6 @@
 package org.nettosphere.samples.chat;
 
+import Util.Data;
 import org.atmosphere.config.service.Get;
 import org.atmosphere.config.service.ManagedService;
 import org.atmosphere.config.service.Message;

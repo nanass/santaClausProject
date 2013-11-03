@@ -46,3 +46,9 @@
 MrsClaus.class
 target/classes/JCSPNorthPole/Wishlist.class
 target/classes/org/nettosphere/samples/chat/NorthPole$GetChannel.class
+target/classes/Util/Data.class
+target/classes/WishListProcess/JCSPNetworkServiceIn.class
+target/classes/WishListProcess/JCSPNetworkServiceOut.class
+.idea/libraries/Maven__org_jeromq_jeromq_0_2_0.xml
+target/classes/org/nettosphere/samples/chat/StartServer.class
+target/classes/WishListProcess/Wishlist.class

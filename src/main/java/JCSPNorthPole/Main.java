@@ -1,5 +1,8 @@
 package JCSPNorthPole;
 
+import WishListProcess.JCSPNetworkServiceIn;
+import WishListProcess.JCSPNetworkServiceOut;
+import WishListProcess.Wishlist;
 import org.jcsp.lang.*;
 import org.nettosphere.samples.chat.AlternateInput;
 import org.nettosphere.samples.chat.NettoServer;
@@ -11,7 +14,6 @@ public class Main {
     enum name{ Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donder, Blitzen, Ruldolph }
     public static void main(String[] args)
     {
-        NettoServer ns = new NettoServer();
         AltingBarrier [] stable = AltingBarrier.create(10);
         AltingBarrier [] sleigh = AltingBarrier.create(10);
         Bucket elfGroup = new Bucket();
@@ -51,9 +53,9 @@ public class Main {
 
                              new WaitingRoom(elfGroup,needToConsult.in(),joinGroup.out(),
                                         openForBusiness.in(),consultationOver.in()),
-                             new AlternateInput(print.in()),
                              new MrsClaus(cookieRoom, print.out()),
-                             new Wishlist(NorthPole.GetChannel.getInput(), deliveryNotice.in(), print.out())
+                             new JCSPNetworkServiceIn(print.in(), "Print", "5566"),
+                             new JCSPNetworkServiceIn(deliveryNotice.in(), "Delivery", "5564")
         };
 
         procs = Utils.concat(procs, reindeerProc);

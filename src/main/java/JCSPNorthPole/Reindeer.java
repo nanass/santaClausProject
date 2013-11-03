@@ -1,6 +1,8 @@
 package JCSPNorthPole;
 
+import Util.Data;
 import org.jcsp.lang.*;
+
 import java.util.Random;
 
 public class Reindeer implements CSProcess
@@ -46,7 +48,6 @@ public class Reindeer implements CSProcess
         }
     }
     public void log(String s){
-        System.out.println(name + ": "  + s);
-        printOut.write(new NorthPoleInterfaceMsg(s,name));
+        printOut.write(new Data(name, s));
     }
 }

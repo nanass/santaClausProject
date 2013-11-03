@@ -1,7 +1,8 @@
-package JCSPNorthPole;
+package WishListProcess;
 
+import Util.Data;
 import org.jcsp.lang.*;
-import org.nettosphere.samples.chat.Data;
+
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class Wishlist implements CSProcess {
                         output += d.getAuthor() + " , " + d.getMessage() +" ";
                     }
                     wishList.clear();
-                    out.write(new NorthPoleInterfaceMsg(output, "all"));
+                    out.write(new Data("all", output));
                     break;
                 case 1 :
                     Data msg = (Data)wishIn.read();

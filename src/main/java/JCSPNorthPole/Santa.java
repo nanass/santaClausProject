@@ -1,5 +1,6 @@
 package JCSPNorthPole;
 
+import Util.Data;
 import org.jcsp.lang.*;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class Santa implements CSProcess {
                     }
                     for ( int i = 0; i <= 8; i++){ harnessed.write(1); }
                     sleigh.sync();
-                    delivery.write(1);
+                    delivery.write(new Data());
                     timer.sleep ( deliveryTime + rng.nextInt(deliveryTime));
                     for ( int i = 0; i <= 8; i++){  returned.write(1); }
                     log("Unharnessing reindeer");
@@ -108,8 +109,7 @@ public class Santa implements CSProcess {
         }
     }
     public void log(String s){
-        System.out.println(name + ": "  + s);
-        printOut.write(new NorthPoleInterfaceMsg(s,name));
+        printOut.write(new Data(name, s));
     }
 }
 

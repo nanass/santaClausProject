@@ -1,5 +1,6 @@
 package JCSPNorthPole;
 
+import Util.Data;
 import org.jcsp.lang.Bucket;
 import org.jcsp.lang.CSProcess;
 import org.jcsp.lang.CSTimer;
@@ -30,8 +31,7 @@ public class MrsClaus implements CSProcess {
     }
 
     public void log(String s){
-        System.out.println(name + ": "  + s);
-        printOut.write(new NorthPoleInterfaceMsg(s,name));
+        printOut.write(new Data(name, s));
     }
 
 }

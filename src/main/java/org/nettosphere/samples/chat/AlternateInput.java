@@ -1,6 +1,6 @@
 package org.nettosphere.samples.chat;
 
-import JCSPNorthPole.NorthPoleInterfaceMsg;
+import Util.Data;
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -23,14 +23,14 @@ public class AlternateInput implements CSProcess {
     public void run() {
         while (true) {
 
-            NorthPoleInterfaceMsg a = (NorthPoleInterfaceMsg)in.read();
+            Data a = (Data)in.read();
 
             try {
                 Future br = b.broadcast(
                         mapper.writeValueAsString(
                                 mapper.readValue(
-                                        "{\"message\":\"" + a.msg + "\","+
-                                         "\"who\":\""+a.who+"\"" + "," +
+                                        "{\"message\":\"" + a.getMessage() + "\","+
+                                         "\"who\":\""+a.getWho()+"\"" + "," +
                                          "\"type\":\"northPole\"}",Data.class)));
             } catch (IOException e) {
                 e.printStackTrace();
