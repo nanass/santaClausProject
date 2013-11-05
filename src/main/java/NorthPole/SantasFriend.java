@@ -1,6 +1,7 @@
 package NorthPole;
 
-import org.nettosphere.samples.chat.AlternateInput;
+import Util.Data;
+import Util.OutputService;
 import java.util.Random;
 import java.util.concurrent.SynchronousQueue;
 
@@ -9,15 +10,15 @@ public class SantasFriend implements Runnable {
     public final String name;
     private final WaitingRoom waitingRoomRef;
 	public final String type;
-    private final AlternateInput ai;
+    private final OutputService out;
     SynchronousQueue<Integer> wait = new SynchronousQueue<Integer>();
 
-    SantasFriend (String name, WaitingRoom waitingRoomRef, String type, AlternateInput ai)
+    SantasFriend (String name, WaitingRoom waitingRoomRef, String type)
     {
         this.name = name;
         this.waitingRoomRef = waitingRoomRef;
 	    this.type = type;
-        this.ai = ai;
+        out = new OutputService("5565");
     }
 
     public void withSanta() throws InterruptedException
@@ -61,6 +62,6 @@ public class SantasFriend implements Runnable {
     }
     public void log(String s){
         System.out.println(name + ": "  + s);
-        ai.send(s,name);
+        out.send(new Data(name, s));
     }
 }

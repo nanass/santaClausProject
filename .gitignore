@@ -41,3 +41,16 @@ target/classes/NorthPole/MrsClaus.class
 target/classes/NorthPole/SnackRoom.class
 jcsp_1_6a_4_10_10.xml
 NorthPole$WishList.class
+target/classes/Util/Data.class
+target/classes/WishListProcess/JCSPNetworkServiceIn.class
+target/classes/WishListProcess/JCSPNetworkServiceOut.class
+.idea/libraries/Maven__org_jeromq_jeromq_0_2_0.xml
+target/classes/org/nettosphere/samples/chat/StartServer.class
+target/classes/WishListProcess/Wishlist.class
+target/classes/Util/Command.class
+target/classes/Util/InputService.class
+target/classes/org/nettosphere/samples/chat/NorthPole$SendToOutput.class
+target/classes/Util/OutputService.class
+target/classes/org/nettosphere/samples/chat/RunServer.class
+target/classes/WishList/RunWishList.class
+target/classes/WishList/WishList.class

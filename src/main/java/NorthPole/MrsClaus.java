@@ -1,15 +1,16 @@
 package NorthPole;
 
-import org.nettosphere.samples.chat.AlternateInput;
+import Util.Data;
+import Util.OutputService;
 
 public class MrsClaus implements Runnable{
 
-    public MrsClaus(AlternateInput ai, SnackRoom sr){
-        this.ai = ai;
+    public MrsClaus(SnackRoom sr){
+        this.out = new OutputService("5565");
         this.sr = sr;
     }
 
-    final private AlternateInput ai;
+    final private OutputService out;
     final private SnackRoom sr;
     final private String name = "MrsClaus";
 
@@ -31,6 +32,6 @@ public class MrsClaus implements Runnable{
     }
     public void log(String s){
         System.out.println(name + ": "  + s);
-        ai.send(s,name);
+        out.send(new Data(name, s));
     }
 }

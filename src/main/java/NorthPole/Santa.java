@@ -1,12 +1,13 @@
 package NorthPole;
 
-import org.nettosphere.samples.chat.AlternateInput;
+
+import Util.Data;
+import Util.OutputService;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import static org.nettosphere.samples.chat.NorthPole.WishList.deliverGifts;
 
 public class Santa implements Runnable
 {
@@ -14,11 +15,13 @@ public class Santa implements Runnable
 	private WaitingRoom stable;
 	private Boolean isSleeping;
 	private final ExecutorService es = Executors.newSingleThreadExecutor();
-    private final AlternateInput ai;
+    private final OutputService outPrint;
+    private final OutputService outDeliver;
     private final SnackRoom sr;
 
-    public Santa(AlternateInput ai, SnackRoom sr){
-        this.ai = ai;
+    public Santa(SnackRoom sr){
+        outPrint = new OutputService("5565");
+        outDeliver = new OutputService("5566");
         this.sr = sr;
     }
     public void findWaitingRoom(WaitingRoom waitingRoom)
@@ -59,7 +62,7 @@ public class Santa implements Runnable
         log("Harnessing reindeer");
 	    es.submit(new UnitOfWork("Getting Hitched", reindeer, work));
 	    es.submit(new UnitOfWork("Delivering Toys", reindeer, work));
-        deliverGifts();
+        outDeliver.send(new Data("", "Deliver"));
 	    es.submit(new UnitOfWork("Getting unhitched", reindeer, work));
 	    es.submit(new UnitOfWork("Release", reindeer, work));
 	    work.await();
@@ -111,7 +114,7 @@ public class Santa implements Runnable
 
     public void log(String s){
         System.out.println("Santa" + ": "  + s);
-        ai.send(s,"Santa");
+        outPrint.send(new Data("Santa", s));
     }
 
     class UnitOfWork implements Runnable

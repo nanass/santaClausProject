@@ -1,6 +1,6 @@
 package NorthPole;
 
-import org.nettosphere.samples.chat.AlternateInput;
+import Util.OutputService;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ExecutorService;
@@ -18,10 +18,10 @@ public class WaitingRoom
 		isWaiting = false;
 	}
 
-    WaitingRoom(Santa santaRef, int size, String type, AlternateInput ai)
+    WaitingRoom(Santa santaRef, int size, String type)
     {
         this.santaRef = santaRef;
-	    group = new Group(size, type, ai);
+	    group = new Group(size, type);
 	    isWaiting = false;
         (new Thread(group)).start();
     }

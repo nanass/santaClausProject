@@ -1,7 +1,7 @@
 package NorthPole;
 
-import org.nettosphere.samples.chat.AlternateInput;
-
+import Util.Data;
+import Util.OutputService;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.BrokenBarrierException;
@@ -14,14 +14,14 @@ public class Group implements Runnable {
     int size;
 	final public String type;
     private ArrayList<String> names = new ArrayList<String>();
-    private final AlternateInput ai;
+    private final OutputService out;
 
-    Group(int i, String type, AlternateInput ai)
+    Group(int i, String type)
     {
         group = new LinkedBlockingQueue<SantasFriend>(i);
         size = i;
 	    this.type = type;
-        this.ai = ai;
+        this.out = new OutputService("5565");
     }
 
     public void add(SantasFriend friend) throws InterruptedException
@@ -57,6 +57,6 @@ public class Group implements Runnable {
 
     public void log(String n, String s){
         System.out.println(n + ": "  + s);
-        ai.send(s,n);
+        out.send(new Data(n,s));
     }
 }

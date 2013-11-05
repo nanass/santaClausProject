@@ -38,6 +38,7 @@ $(function () {
         var message = response.responseBody;
         try {
             var json = jQuery.parseJSON(message);
+            console.log(json);
         } catch (e) {
             console.log('This doesn\'t look like a valid JSON: ', message.data);
             return;
