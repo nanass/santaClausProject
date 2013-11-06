@@ -62,3 +62,5 @@ target/classes/Server/NorthPole.class
 target/classes/Util/OutputActor.class
 target/classes/Server/StartServer.class
 target/classes/Wishlist/StartWishList.class
+target/nettosphere-chat-2.0.2-SNAPSHOT.jar
+target/maven-archiver/pom.properties
