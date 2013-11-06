@@ -1,32 +1,44 @@
-package AkkaNorthPole.Actors;
+package Wishlist;
 
-import AkkaNorthPole.Messages.InterfaceMsg;
+import Util.InputActor;
+import Util.OutputActor;
+import akka.actor.ActorRef;
+import akka.actor.Props;
 import akka.actor.UntypedActor;
-import org.nettosphere.samples.chat.Data;
-import org.nettosphere.samples.chat.NorthPole;
+import Util.Data;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class WishList extends UntypedActor {
 
     private CopyOnWriteArrayList<Data> wishList = new CopyOnWriteArrayList<Data>();
+    private ActorRef delivery;
+    private ActorRef wish;
+    private ActorRef out;
+
+    WishList(){
+        delivery = getContext().actorOf(Props.create(InputActor.class, "5564", getSelf()));
+        wish = getContext().actorOf(Props.create(InputActor.class, "5565", getSelf()));
+        out = getContext().actorOf(Props.create(OutputActor.class, "5563"));
+        delivery.tell("Start", getSelf());
+        wish.tell("Start", getSelf());
+    }
 
     @Override
     public void onReceive(Object o) throws Exception {
 
         if(o instanceof Data){
             Data d = (Data)o;
-            addToWishList(d);
-        }
-        else if(o instanceof String){
-            String message = (String)o;
-            if(message.equals("Deliver")){
+            if(d.getMessage().equals("Deliver")){
                 deliverGifts();
+            }
+            else{
+                addToWishList(d);
             }
         }
     }
 
-    public void deliverGifts(){
+    private void deliverGifts(){
         String output = "";
         System.out.println("Gifts for: ");
         for(Data d : wishList){
@@ -34,10 +46,10 @@ public class WishList extends UntypedActor {
             output += d.getAuthor() + " , " + d.getMessage() +" ";
         }
         wishList.clear();
-        NorthPole.SendToActors.aiActorRefRef().tell(new InterfaceMsg("all", output), null);
+        out.tell(new Data("all", output), getSelf());
     }
 
-    public void addToWishList(Data msg){
+    private void addToWishList(Data msg){
         if(msg.getType().equals("wishlist")){
             wishList.add(msg);
             System.out.println(msg.getMessage());

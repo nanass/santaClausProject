@@ -54,3 +54,11 @@ NorthPole$WishList.class
 target/classes/org/nettosphere/samples/chat/NorthPole$SendToActors.class
 target/classes/AkkaNorthPole/Actors/WaitingRoom$waitingRoomState.class
 target/classes/AkkaNorthPole/Actors/WishList.class
+target/classes/Server/AlternateInput.class
+target/classes/Util/InputActor.class
+target/classes/Server/NettoServer.class
+target/classes/Server/NorthPole$InjectOutput.class
+target/classes/Server/NorthPole.class
+target/classes/Util/OutputActor.class
+target/classes/Server/StartServer.class
+target/classes/Wishlist/StartWishList.class

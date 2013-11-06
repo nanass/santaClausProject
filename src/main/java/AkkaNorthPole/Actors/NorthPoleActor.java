@@ -1,15 +1,13 @@
 package AkkaNorthPole.Actors;
 
-import AkkaNorthPole.Messages.InterfaceMsg;
 import AkkaNorthPole.Messages.Msg;
 import AkkaNorthPole.Messages.NorthPoleMsg;
+import Util.OutputActor;
 import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import org.nettosphere.samples.chat.AlternateInput;
 import scala.concurrent.duration.Duration;
-
+import Util.Data;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +18,7 @@ public abstract class NorthPoleActor extends UntypedActor{
     final String name;
     private State state;
     Random randomGenerator = new Random();
-    ActorRef ai;
+    ActorRef output;
     public static Props mkProps(String name) {
         return Props.create(NorthPoleActor.class, name);
     }
@@ -28,8 +26,7 @@ public abstract class NorthPoleActor extends UntypedActor{
     public NorthPoleActor (String name) {
         this.name = name;
         System.out.println(name + " is starting at " + this.self().path().toString());
-         ai = getContext().actorOf(Props.create(AlternateInput.class));
-
+        output = getContext().actorOf(Props.create(OutputActor.class, "5563"));
     }
 
     protected void setState(State s) {
@@ -44,7 +41,7 @@ public abstract class NorthPoleActor extends UntypedActor{
 
     public void log(String s){
         System.out.println(name + ": "  + s);
-        ai.tell(new InterfaceMsg(name,s), getSelf());
+        output.tell(new Data(name, s), getSelf());
     }
 
     protected void reQueue(NorthPoleMsg msg){

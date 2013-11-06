@@ -3,11 +3,10 @@ package AkkaNorthPole.Main;
 import AkkaNorthPole.Actors.*;
 import AkkaNorthPole. Messages.Msg;
 import AkkaNorthPole.Messages.NorthPoleMsg;
+import Util.OutputActor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import org.nettosphere.samples.chat.AlternateInput;
-import org.nettosphere.samples.chat.NettoServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,15 +17,11 @@ enum name{ Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donder, Blitzen, Ruldol
 class NorthPole{
     public static void main(String[] args) throws IOException {
 
-        NettoServer ns = new NettoServer();
-
         List<ActorRef> elves = new ArrayList<ActorRef>();
         List<ActorRef> reindeer = new ArrayList<ActorRef>();
 
         ActorSystem system = ActorSystem.create("NorthPole");
-        org.nettosphere.samples.chat.NorthPole.SendToActors.aiActorRefRef(system.actorOf(Props.create(AlternateInput.class)));
-        ActorRef wishList = system.actorOf(Props.create(WishList.class));
-        org.nettosphere.samples.chat.NorthPole.SendToActors.setActorRef(wishList);
+        ActorRef wishList = system.actorOf(Props.create(OutputActor.class, "5564"));
         ActorRef santa = system.actorOf(Props.create(Santa.class, "Santa", wishList));
         ActorRef secretary = system.actorOf(Props.create(WaitingRoom.class, "WaitingRoom", santa));
         santa.tell(new Msg(NorthPoleMsg.Secretary), secretary);
@@ -38,6 +33,5 @@ class NorthPole{
             reindeer.add(system.actorOf(Props.create(Reindeer.class, r.toString(), secretary)));
         }
         ActorRef mrsClaus = system.actorOf(Props.create(MrsClaus.class, santa));
-
     }
 }

@@ -2,6 +2,7 @@ package AkkaNorthPole.Actors;
 
 import AkkaNorthPole.Messages.Msg;
 import AkkaNorthPole.Messages.NorthPoleMsg;
+import Util.Data;
 import akka.actor.ActorRef;
 
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class Santa extends NorthPoleActor{
                         case deliveringToys :
                             log("Delivering Toys");
                             setState(santaState.dismissingReindeer);
-                            wishList.tell("Deliver", null);
+                            wishList.tell(new Data("wishlist","Deliver"), null);
                             doAction(msg.who, new Msg(NorthPoleMsg.Unhitch, msg.group, msg.who));
                             break;
                         case dismissingReindeer :

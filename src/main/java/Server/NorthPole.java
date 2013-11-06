@@ -1,6 +1,8 @@
-package org.nettosphere.samples.chat;
+package Server;
 
+import Util.Data;
 import akka.actor.ActorRef;
+import akka.actor.Props;
 import org.atmosphere.config.service.Get;
 import org.atmosphere.config.service.ManagedService;
 import org.atmosphere.config.service.Message;
@@ -14,6 +16,10 @@ public class NorthPole {
     private final ObjectMapper mapper = new ObjectMapper();
     Broadcaster b = BroadcasterFactory.getDefault().get("/");
 
+    public static Props mkProps(String name) {
+        return Props.create(NorthPole.class);
+    }
+
     @Get
     public void onOpen(final AtmosphereResource r) {
         b.addAtmosphereResource(r);
@@ -22,26 +28,11 @@ public class NorthPole {
     @Message
     public String onMessage(String message) throws IOException {
         Data d = mapper.readValue(message, Data.class);
-        SendToActors.getActorRef().tell(d, null);
+        InjectOutput.wishList.tell(d, null);
         return mapper.writeValueAsString(d);
 
     }
-
-    public final static class SendToActors{
-
-        private static ActorRef actorRef;
-        private static ActorRef aiActorRef;
-        public static void setActorRef(ActorRef a){
-            actorRef = a;
-        }
-        public static ActorRef getActorRef(){
-            return actorRef;
-        }
-        public static void aiActorRefRef(ActorRef a){
-            aiActorRef = a;
-        }
-        public static ActorRef aiActorRefRef(){
-            return aiActorRef;
-        }
+    public static class InjectOutput{
+        public static ActorRef wishList;
     }
 }

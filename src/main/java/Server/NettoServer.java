@@ -1,4 +1,4 @@
-package org.nettosphere.samples.chat;
+package Server;
 
 import org.atmosphere.nettosphere.Config;
 import org.atmosphere.nettosphere.Nettosphere;
